@@ -3,22 +3,34 @@
   <!-- Bootstrap -->
   <link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>
   <!-- Bootstrap Material Design -->
-  <link href="bootstrap/bootstrap-material-design.css" rel="stylesheet"/>
-  
+ <link href="bootstrap/bootstrap-material-design.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
   <style type="text/css">
   .table-hover thead {
-        background-color: #C4E3F3;
-  }
+        background-color: #7ECFF5;
+}
   .table-hover tbody {
         background-color: white;
-  }
-  .table-hover tbody tr:hover td {
+}
+ .table-hover tbody tr:hover td {
         /*background-color:#20D0D8;*/
-        background-color: #C4E3F3;
+         background-color: #B1E2F9;
+}
+
+body{
+  	     background-color: white;
   }
 
   </style>
+  	<script type="text/javascript">
+  window.setTimeout(function() { // hide alert message
+    $("#div").removeClass('in'); 
+
+}, 5000);
+  	</script>
   	
  
  <body>
@@ -44,7 +56,7 @@
 		require_once("sql.php");
 		$mysqli = new mysqli($servername, $username, $password, $dbname);
 		if ($mysqli->connect_errno) {
-			echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+			echo "Conexión fallida a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		}
 		if (is_null($_GET) || !isset($_GET["cuantos"]))
 		{
@@ -77,26 +89,31 @@
 		}
 		
 		while ($row = mysqli_fetch_array($q)) {
-			$i = $i + 1;
+			$i++;
 			if ($i > $nn + $n)
 			{
 				break;
 			}
+			$j = 0;
 			echo "<tr>";
-			echo "<td>".$row[0]."</td>";
-			echo "<td>".$row[1]."</td>";
-			echo "<td>".$row[2]."</td>";
-			echo "<td>".$row[3]."</td>";
-			echo "<td>".$row[4]."</td>";
-			echo "<td>".$row[5]."</td>";
-			echo "<td>".$row[6]."</td>";
+			while ($j < 7)
+			{
+				echo "<td>".$row[$j]."</td>";
+				$j++;
+			}
+			$tipo = $row[7];
 			echo "<td><form>
-					<table><tr><td><input type=\"radio\" name=\"tipo\" value=\"\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "" ? "checked" : "")."> No clasificado</td>
-					<td><input type=\"radio\" name=\"tipo\" value=\"F\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "F" ? "checked" : "")."> Favorable</td></tr>
-					<tr><td><input type=\"radio\" name=\"tipo\" value=\"N\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "N" ? "checked" : "")."> Neutral</td>
-					<td><input type=\"radio\" name=\"tipo\" value=\"B\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "B" ? "checked" : "")."> Baja voluntaria</td></tr>
-					<tr><td><input type=\"radio\" name=\"tipo\" value=\"A\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "A" ? "checked" : "")."> Agresivo baja</td>
-					<td><input type=\"radio\" name=\"tipo\" value=\"E\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "E" ? "checked" : "")."> Error en número</td></tr></table>
+					<table>
+					<tr>
+					<td><input type=\"radio\" name=\"tipo\" value=\"\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($tipo == "" ? "checked" : "")."> No clasificado</td>
+					<td><input type=\"radio\" name=\"tipo\" value=\"F\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($tipo == "F" ? "checked" : "")."> Favorable</td></tr>
+					<tr>
+					<td><input type=\"radio\" name=\"tipo\" value=\"N\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($tipo == "N" ? "checked" : "")."> Neutral</td>
+					<td><input type=\"radio\" name=\"tipo\" value=\"B\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($tipo == "B" ? "checked" : "")."> Baja voluntaria</td></tr>
+					<tr>
+					<td><input type=\"radio\" name=\"tipo\" value=\"A\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($tipo == "A" ? "checked" : "")."> Agresivo baja</td>
+					<td><input type=\"radio\" name=\"tipo\" value=\"E\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($tipo == "E" ? "checked" : "")."> Error en número</td></tr>
+					</table>
 					</form></td>";
 		}
 		$q->free();
@@ -111,7 +128,7 @@
 	</tr>
 </table >
 <br>
-<ul class='pagination'>
+<ul class='pagination' style='margin-left: 40%;'>
 <?php
 	if ($nn < $count)
 	{
