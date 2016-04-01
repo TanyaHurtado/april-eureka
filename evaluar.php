@@ -132,7 +132,6 @@
 		echo ($count - $nn != $n) ? "<li><a href=\"evaluar.php?cuantos=".$nn."&n=".max($count - $nn, 0)."\">&gt;&gt;</a></li>" : "&gt;&gt; ";
 
 	}
-	echo "</tr></table><table><tr><td id=\"tipoResponse\"></td></tr></table><br>";
 	echo "</ul>";
 ?>
 </body>
