@@ -1,4 +1,3 @@
- 
 <html>
 <head> 
   <!-- Bootstrap -->
@@ -10,24 +9,24 @@
   <style type="text/css">
   .table-hover thead {
         background-color: #C4E3F3;
-}
+  }
   .table-hover tbody {
         background-color: white;
-}
- .table-hover tbody tr:hover td {
+  }
+  .table-hover tbody tr:hover td {
         /*background-color:#20D0D8;*/
-         background-color: #C4E3F3;
-}
+        background-color: #C4E3F3;
+  }
 
   </style>
   	
  
  <body>
  <table class="table table-striped table-hover">
-<thead>
+ <thead>
 	
 
- 	  <tr class="x" >
+  <tr class="x" >
     <th>ID</td>
     <th>Teléfono</td>
     <th>Línea</td>
@@ -38,11 +37,9 @@
     <th>Tipo</td>
   </tr>
 
-</thead>
-<tbody>
-	
-
-  <tr class="x">
+ </thead>
+ <tbody>
+    <tr class="x">
     <?php
 		require_once("sql.php");
 		$mysqli = new mysqli($servername, $username, $password, $dbname);
@@ -106,34 +103,33 @@
 		$mysqli->close();
 	?>
 	</tr>
-</tbody>
-</table>
+ </tbody>
+ </table>
 <table>
 	<tr>
 		<td id="tipoResponse"></td>
 	</tr>
 </table >
 <br>
+<ul class='pagination'>
 <?php
 	if ($nn < $count)
 	{
-		echo "<ul class='pagination'>";
-		echo (($n - $nn) >= 0) ? "<li><a href=\"evaluar.php?cuantos=".$nn."&n=".(0)."\">&lt;&lt;</a></li>" : "&lt;&lt; ";
-		echo (($n - $nn) >= 0) ? "<li><a href=\"evaluar.php?cuantos=".$nn."&n=".($n - $nn)."\">&lt;</a></li>" : "&lt; ";
+		echo "<li".((($n - $nn) >= 0) ? "><a href=\"evaluar.php?cuantos=".$nn."&n=".(0) : " class=\"page-item disabled\"><a href=\"#")."\">&lt;&lt;</a></li>";
+		echo "<li".(($n > 0) ? "><a href=\"evaluar.php?cuantos=".$nn."&n=".max($n - $nn, 0) : " class=\"page-item disabled\"><a href=\"#")."\">&lt;</a></li>";
 		$i = 1;
 		$j = 0;
 		while ($j < $count)
 		{
-			echo ($n == $j) ? $i." " : "<li><a href=\"evaluar.php?cuantos=".$nn."&n=".$j."\">".$i."</a></li>";
+			echo "<li".(($n == $j) ? " class=\"page-item active\"><a href=\"#" : "><a href=\"evaluar.php?cuantos=".$nn."&n=".$j)."\">".$i."</a></li>";
 			$j = $j + $nn;
 			$i = $i + 1;
 		}
-		echo (($n + $nn) < $count) ? "<li><a href=\"evaluar.php?cuantos=".$nn."&n=".($n + $nn)."\">&gt;</a></li> " : "&gt; ";
-		echo ($count - $nn != $n) ? "<li><a href=\"evaluar.php?cuantos=".$nn."&n=".max($count - $nn, 0)."\">&gt;&gt;</a></li>" : "&gt;&gt; ";
-
+		echo "<li".((($n + $nn) < $count) ? "><a href=\"evaluar.php?cuantos=".$nn."&n=".($n + $nn) : " class=\"page-item disabled\"><a href=\"#")."\">&gt;</a></li>";
+		echo "<li".(($count - $nn != $n) ? "><a href=\"evaluar.php?cuantos=".$nn."&n=".max($count - $nn, 0) : " class=\"page-item disabled\"><a href=\"#")."\">&gt;&gt;</a></li>";
 	}
-	echo "</ul>";
 ?>
+</ul>
 </body>
 </html>
 <script>
