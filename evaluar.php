@@ -29,11 +29,11 @@
 
  	  <tr class="x" >
     <th>ID</td>
-    <th>Teléfono</td>
-    <th>Línea</td>
+    <th>TelÃ©fono</td>
+    <th>LÃ­nea</td>
     <th>Mensaje</td>
-    <th>Recepción</td>
-    <th>Campaña</td>
+    <th>RecepciÃ³n</td>
+    <th>CampaÃ±a</td>
     <th>Registro</td>
     <th>Tipo</td>
   </tr>
@@ -45,7 +45,7 @@
   <tr class="x">
     <?php
 		require_once("sql.php");
-		$mysqli = new mysqli($servername, $username, $password/*CONTRASEÑA*/, $dbname);
+		$mysqli = new mysqli($servername, $username, $password, $dbname);
 		if ($mysqli->connect_errno) {
 			echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		}
@@ -99,7 +99,7 @@
 					<tr><td><input type=\"radio\" name=\"tipo\" value=\"N\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "N" ? "checked" : "")."> Neutral</td>
 					<td><input type=\"radio\" name=\"tipo\" value=\"B\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "B" ? "checked" : "")."> Baja voluntaria</td></tr>
 					<tr><td><input type=\"radio\" name=\"tipo\" value=\"A\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "A" ? "checked" : "")."> Agresivo baja</td>
-					<td><input type=\"radio\" name=\"tipo\" value=\"E\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "E" ? "checked" : "")."> Error en número</td></tr></table>
+					<td><input type=\"radio\" name=\"tipo\" value=\"E\" onchange=\"cambioTipo(this.value, ".$i.")\" ".($row[7] == "E" ? "checked" : "")."> Error en nÃºmero</td></tr></table>
 					</form></td>";
 		}
 		$q->free();
